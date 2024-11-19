@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práticas de Extensão - IFPR</title>
+    <style>
+        :root {
+            --primary: #004a8d;
+            --secondary: #00a859;
+            --light: #f5f5f5;
+            --dark: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+        }
+
+        nav {
+            background-color: var(--secondary);
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h1, h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Práticas de Extensão - IFPR</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Início</a></li>
+            <li><a href="#projects">Projetos</a></li>
+            <li><a href="#events">Eventos</a></li>
+            <li><a href="#about">Sobre</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="home">
+            <h2>Bem-vindo às Práticas de Extensão</h2>
+            <p>As Práticas de Extensão são atividades que promovem a interação entre o IFPR e a comunidade, proporcionando experiências práticas e desenvolvimento do protagonismo pros alunos do IFPR.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projetos feitos pelo nosso grupo</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Participação na feira de eletrônicos</h3>
+                    <p>Descrição do projeto de extensão desenvolvido pelos alunos.</p>
+                </div>
+                <div class="card">
+                    <h3>Projeto 2</h3>
+                    <p>Descrição do projeto de extensão desenvolvido pelos alunos.</p>
+                </div>
+                <div class="card">
+                    <h3>Projeto 3</h3>
+                    <p>Descrição do projeto de extensão desenvolvido pelos alunos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="events">
+            <h2>Eventos</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Workshop de Extensão</h3>
+                    <p>Data: 25/11/2024</p>
+                    <p>Local: Auditório IFPR</p>
+                    <p>Inscrições abertas para o workshop sobre práticas de extensão.</p>
+                </div>
+                <div class="card">
+                    <h3>Seminário de Projetos</h3>
+                    <p>Data: 10/12/2024</p>
+                    <p>Local: Sala Multiuso</p>
+                    <p>Apresentação dos resultados dos projetos de extensão.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>Desenvolvedores</h2>
+            <div class="card">
+                <p>Entre em contato conosco:</p>
+                <div class="social-links">
+                    <a href="mailto:contato@ifpr.edu.br">📧 Email</a>
+                    <a href="https://instagram.com/ifpr" target="_blank">📸 Instagram</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 IFPR - Instituto Federal do Paraná. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

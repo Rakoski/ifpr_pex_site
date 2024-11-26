@@ -86,6 +86,19 @@ h1, h2 {
     text-decoration: none;
 }
 
+.project-link, .event-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.project-link:hover, .event-link:hover {
+    color: var(--primary);
+}
+
 footer {
     background-color: var(--primary);
     color: white;

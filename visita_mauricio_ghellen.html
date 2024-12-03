@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feira de Eletrônicos - IFPR</title>
+    <style>
+        :root {
+            --primary-color: #00a859;
+            --secondary-color: #00a859;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        nav {
+            background: white;
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            animation: modalOpen 0.3s ease-out;
+        }
+
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Extensão - IFPR</h1>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="projects.html">Projetos</a></li>
+            <li><a href="events.html">Eventos</a></li>
+            <li><a href="index.html#about">Sobre</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Impacto Social na Comunidade</h2>
+            <div class="cards">
+                <div class="card" onclick="openModal('modal1')">
+                    <img src="assets/duvidas.jpeg" alt="Apresentação sobre Segurança Digital">
+                    <div class="card-content">
+                        <h3>Capacitação em Segurança Digital</h3>
+                        <p>Conclusão: O projeto promoveu maior autonomia digital e segurança para idosos, fortalecendo laços comunitários e reduzindo a vulnerabilidade digital.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal2')">
+                    <img src="assets/explicacao_ghellen.jpeg" alt="Grupo de Discussão">
+                    <div class="card-content">
+                        <h3>Tecnologia na Terceira Idade</h3>
+                        <p>Conclusão: O programa transformou a relação dos idosos com a tecnologia, promovendo inclusão digital e independência.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal3')">
+                    <img src="assets/explicacao_ghellen_velhinha.jpeg" alt="Orientação Individual">
+                    <div class="card-content">
+                        <h3>Mentoria Digital Personalizada</h3>
+                        <p>Conclusão: O atendimento individualizado permitiu superar barreiras específicas e criar soluções adaptadas às necessidades de cada participante.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal4')">
+                    <!-- SVG remains the same -->
+                    <div class="card-content">
+                        <h3>Inovação Social</h3>
+                        <p>Conclusão: Os projetos de inovação social promoveram desenvolvimento local e formação de jovens talentos em tecnologia.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal5')">
+                    <!-- SVG remains the same -->
+                    <div class="card-content">
+                        <h3>Transformação Digital Comunitária</h3>
+                        <p>Conclusão: A transformação digital promoveu maior integração comunitária e desenvolvimento de competências locais.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal6')">
+                    <!-- SVG remains the same -->
+                    <div class="card-content">
+                        <h3>Impacto Social Tecnológico</h3>
+                        <p>Conclusão: O projeto criou um ecossistema de inovação social, promovendo autonomia e desenvolvimento sustentável na comunidade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('modal1')">&times;</button>
+            <h2>Capacitação em Segurança Digital</h2>
+            <h3>Impacto na Comunidade:</h3>
+            <ul>
+                <li>Mais de 150 idosos capacitados em segurança digital</li>
+                <li>Redução de 60% nos relatos de golpes digitais entre os participantes</li>
+                <li>Criação de rede de suporte entre participantes para compartilhamento de experiências</li>
+                <li>Desenvolvimento de material educativo adaptado para o público senior</li>
+            </ul>
+            <p>Conclusão: O projeto promoveu maior autonomia digital e segurança para idosos, fortalecendo laços comunitários e reduzindo a vulnerabilidade digital.</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('modal2')">&times;</button>
+            <h2>Tecnologia na Terceira Idade</h2>
+            <h3>Resultados Alcançados:</h3>
+            <ul>
+                <li>200 participantes em workshops práticos</li>
+                <li>Aumento de 75% no uso independente de aplicativos bancários e de comunicação</li>
+                <li>Criação de grupos de estudo autônomos entre participantes</li>
+                <li>Desenvolvimento de métodos adaptados de ensino tecnológico</li>
+            </ul>
+            <p>Conclusão: O programa transformou a relação dos idosos com a tecnologia, promovendo inclusão digital e independência.</p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('modal3')">&times;</button>
+            <h2>Mentoria Digital Personalizada</h2>
+            <h3>Conquistas:</h3>
+            <ul>
+                <li>Atendimento personalizado a 100 idosos</li>
+                <li>90% dos participantes relataram maior confiança no uso de tecnologia</li>
+                <li>Desenvolvimento de material didático personalizado</li>
+                <li>Formação de multiplicadores do conhecimento na comunidade</li>
+            </ul>
+            <p>Conclusão: O atendimento individualizado permitiu superar barreiras específicas e criar soluções adaptadas às necessidades de cada participante.</p>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('modal4')">&times;</button>
+            <h2>Inovação Social</h2>
+            <h3>Realizações:</h3>
+            <ul>
+                <li>Desenvolvimento de 5 projetos tecnológicos comunitários</li>
+                <li>Parcerias com 3 instituições locais</li>
+                <li>Capacitação de 50 jovens em desenvolvimento tecnológico</li>
+                <li>Implementação de soluções sustentáveis</li>
+            </ul>
+            <p>Conclusão: Os projetos de inovação social promoveram desenvolvimento local e formação de jovens talentos em tecnologia.</p>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('modal5')">&times;</button>
+            <h2>Transformação Digital Comunitária</h2>
+            <h3>Impactos:</h3>
+            <ul>
+                <li>Implementação de 3 projetos de inclusão digital</li>
+                <li>Benefício direto a 300 membros da comunidade</li>
+                <li>Criação de hub tecnológico comunitário</li>
+                <li>Estabelecimento de rede de suporte tecnológico local</li>
+            </ul>
+            <p>Conclusão: A transformação digital promoveu maior integração comunitária e desenvolvimento de competências locais.</p>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('modal6')">&times;</button>
+            <h2>Impacto Social Tecnológico</h2>
+            <h3>Resultados:</h3>
+            <ul>
+                <li>Alcance de 500 beneficiários diretos</li>
+                <li>Redução de 40% na exclusão digital local</li>
+                <li>Formação de 20 líderes comunitários em tecnologia</li>
+                <li>Desenvolvimento de 4 projetos de tecnologia social</li>
+            </ul>
+            <p>Conclusão: O projeto criou um ecossistema de inovação social, promovendo autonomia e desenvolvimento sustentável na comunidade.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 IFPR - Instituto Federal do Paraná. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = "none";
+                });
+                document.body.style.overflow = "auto";
+            }
+        });
+    </script>
+</body>
+</html>

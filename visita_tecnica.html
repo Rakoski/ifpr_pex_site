@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitas Técnicas - Empresas de Tecnologia</title>
+    <style>
+        :root {
+            --primary-color: #00a859;
+            --secondary-color: #00a859;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        nav {
+            background: white;
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            animation: modalOpen 0.3s ease-out;
+        }
+
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+        }
+
+        .modal img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .modal h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .modal p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Extensão - IFPR</h1>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="projects.html">Projetos</a></li>
+            <li><a href="events.html">Eventos</a></li>
+            <li><a href="index.html#about">Sobre</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Visitas Técnicas às Empresas de Tecnologia</h2>
+            <div class="cards">
+                <div class="card" onclick="openModal('modal1')">
+                    <img src="assets/visita_explicacao.jpeg" alt="Reunião e Apresentação">
+                    <div class="card-content">
+                        <h3>Apresentação e Networking</h3>
+                        <p>Conclusão: Foi um momento de integração e troca de experiências com profissionais das empresas locais de tecnologia, proporcionando insights valiosos sobre o mercado de trabalho.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal2')">
+                    <img src="assets/visita_fotohelio.jpeg" alt="Grupo na Empresa">
+                    <div class="card-content">
+                        <h3>Visita às Instalações</h3>
+                        <p>Conclusão: Os estudantes puderam conhecer diferentes setores e compreender como as empresas organizam seus ambientes de trabalho para maximizar a produtividade e bem-estar dos colaboradores.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal3')">
+                    <img src="assets/visita_fotona.jpeg" alt="Foto em Grupo">
+                    <div class="card-content">
+                        <h3>Encerramento e Confraternização</h3>
+                        <p>Conclusão: Este momento foi fundamental para consolidar o conhecimento adquirido e estabelecer conexões profissionais valiosas para o futuro dos estudantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modals -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal1')">&times;</button>
+                <img src="assets/visita_explicacao.jpeg" alt="Reunião e Apresentação">
+                <h3>Apresentação e Networking</h3>
+                <p>Durante nossa visita técnica, os alunos tiveram a oportunidade de participar de apresentações dinâmicas sobre:</p>
+                <ul>
+                    <p>• Metodologias ágeis utilizadas no desenvolvimento de software</p>
+                    <p>• Tecnologias e ferramentas mais utilizadas no mercado</p>
+                    <p>• Processos de desenvolvimento e gestão de projetos</p>
+                    <p>• Oportunidades de estágio e carreira no setor de tecnologia</p>
+                </ul>
+                <p>Os profissionais compartilharam suas experiências e trajetórias, proporcionando uma visão realista do mercado de trabalho em tecnologia.</p>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal2')">&times;</button>
+                <img src="assets/visita_fotohelio.jpeg" alt="Grupo na Empresa">
+                <h3>Visita às Instalações</h3>
+                <p>A visita proporcionou aos alunos uma imersão no ambiente profissional de tecnologia, incluindo:</p>
+                <ul>
+                    <p>• Conhecimento da infraestrutura e recursos tecnológicos</p>
+                    <p>• Observação da dinâmica das equipes de desenvolvimento</p>
+                    <p>• Contato com diferentes áreas dentro das empresas</p>
+                    <p>• Apresentação de projetos reais em desenvolvimento</p>
+                </ul>
+                <p>Os estudantes puderam conhecer diferentes setores e compreender como as empresas organizam seus ambientes de trabalho para maximizar a produtividade e bem-estar dos colaboradores.</p>
+            </div>
+        </div>
+
+        <div id="modal3" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal3')">&times;</button>
+                <img src="assets/visita_fotona.jpeg" alt="Foto em Grupo">
+                <h3>Encerramento e Confraternização</h3>
+                <p>O encerramento das visitas técnicas foi marcado por momentos de integração e troca de experiências:</p>
+                <ul>
+                    <p>• Sessão de perguntas e respostas com os profissionais</p>
+                    <p>• Troca de contatos para futuras oportunidades</p>
+                    <p>• Feedback sobre as expectativas do mercado</p>
+                    <p>• Orientações sobre preparação profissional</p>
+                </ul>
+                <p>Este momento foi fundamental para consolidar o conhecimento adquirido e estabelecer conexões profissionais valiosas para o futuro dos estudantes.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 IFPR - Instituto Federal do Paraná. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = "none";
+                });
+                document.body.style.overflow = "auto";
+            }
+        });
+    </script>
+</body>
+</html>

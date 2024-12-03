@@ -4,15 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eventos - Práticas de Extensão IFPR</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex: 1;
+        }
+
+        .events-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .events-intro svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 0.5rem auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .event-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .event-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            animation: modalOpen 0.3s ease-out;
+        }
+
+        .close-button {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+        }
+
+        .close-button:hover {
+            color: var(--primary-color);
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Práticas de Extensão - IFPR</h1>
+        <h1>Extensão - IFPR</h1>
     </header>
-
-    <img src="assets/ifpr.png" height="30px" width="30px">
-
     <nav>
         <ul>
             <li><a href="index.html">Início</a></li>
@@ -21,29 +228,108 @@
             <li><a href="index.html#about">Sobre</a></li>
         </ul>
     </nav>
-
     <main>
         <section id="events">
-            <h2>O que é extensão?</h2>
+            <div class="events-intro">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <h2>Eventos</h2>
+                <p>Participe dos eventos que conectam o IFPR à comunidade</p>
+            </div>
             <div class="cards">
-                <div class="card">
+                <div class="card" onclick="openModal('modal1')">
+                    <svg viewBox="0 0 24 24" class="card-icon" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
                     <h3>IFPR</h3>
                     <p>Site IFPR</p>
-                    <p>Conheça o site do IFPR!.</p>
+                    <p>Conheça o site do IFPR e descubra todas as oportunidades disponíveis!</p>
                     <a href="https://ifpr.edu.br/" class="event-link">Ver mais informações →</a>
                 </div>
-                <div class="card">
+                <div class="card" onclick="openModal('modal2')">
+                    <svg viewBox="0 0 24 24" class="card-icon" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
                     <h3>Sobre extensões</h3>
                     <p>Local: Sala 2 - Bloco 2</p>
-                    <p>Apresentação dos resultados dos projetos da feira de extensão.</p>
-                    <a href="extensions.html" class="event-link">Ver mais informações →</a>
+                    <p>Venha conhecer os impactos e contribuições dos nossos projetos para a comunidade. Uma oportunidade única de conhecer o impacto de nossas iniciativas.</p>
+                    <a href="https://ifpr.edu.br/institucional/o-instituto/comissoes/comissao-de-curricularizacao-da-extensao/o-que-e-extensao/" class="event-link">Ver mais informações →</a>
                 </div>
             </div>
         </section>
-    </main>
 
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal1')">&times;</button>
+                <h3>IFPR</h3>
+                <p>Site oficial do Instituto Federal do Paraná</p>
+                <p>Acesse o portal institucional do IFPR para conhecer mais sobre:</p>
+                <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                    <li>Cursos técnicos e superiores</li>
+                    <li>Programas de extensão</li>
+                    <li>Oportunidades de pesquisa</li>
+                    <li>Eventos acadêmicos</li>
+                    <li>Processos seletivos</li>
+                </ul>
+                <a href="https://ifpr.edu.br/" class="event-link">Visitar site →</a>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal2')">&times;</button>
+                <h3>Sobre extensões</h3>
+                <p><strong>Local:</strong> Sala 2 - Bloco 2</p>
+                <p>Apresentação dos resultados dos projetos desenvolvidos durante a feira de extensão. Venha conhecer os impactos e contribuições dos nossos projetos para a comunidade.</p>
+                <p><strong>O que você vai encontrar:</strong></p>
+                <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                    <li>Demonstrações de projetos</li>
+                    <li>Interação com os desenvolvedores</li>
+                    <li>Oportunidades de participação</li>
+                    <li>Networking com a comunidade</li>
+                </ul>
+                <p><em>Data e horário a serem confirmados.</em></p>
+                <a href="https://ifpr.edu.br/institucional/o-instituto/comissoes/comissao-de-curricularizacao-da-extensao/o-que-e-extensao/" class="event-link">Mais informações →</a>
+            </div>
+        </div>
+    </main>
     <footer>
         <p>© 2024 IFPR - Instituto Federal do Paraná. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = "none";
+                });
+                document.body.style.overflow = "auto";
+            }
+        });
+    </script>
 </body>
 </html>

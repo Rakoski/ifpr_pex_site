@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos - Práticas de Extensão IFPR</title>
+    <style>
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        nav {
+            background: white;
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 1rem auto;
+        }
+
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.close-button {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: var(--primary-color);
+}
+
+@keyframes modalOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 3rem;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 12px;
+            position: relative;
+            animation: modalOpen 0.3s ease-out;
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            margin-top: auto;
+        }
+
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .card img {
+                height: 200px;
+            }
+            .card {
+                padding-top: 150px;
+            }
+
+            .card svg {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Extensão - IFPR</h1>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="projects.html">Projetos</a></li>
+            <li><a href="events.html">Eventos</a></li>
+            <li><a href="index.html#about">Sobre</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Nossos Projetos e Atividades</h2>
+            <div class="cards">
+                <div class="card" onclick="openModal('modal1')">
+                    <img src="assets/explicacao.jpeg" alt="Feira de Trabalhos">
+                    <div class="card-content">
+                        <h3>Feira de Trabalhos Acadêmicos</h3>
+                        <p>Conclusão: Entre os destaques, tivemos projetos de automação residencial, sistemas de monitoramento ambiental, aplicativos educacionais e soluções sustentáveis para problemas da comunidade local. Os avaliadores ficaram impressionados com a qualidade técnica e a criatividade das soluções apresentadas.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal2')">
+                    <img src="assets/feira_eletronicos.jpeg" alt="Encontro de Estudantes">
+                    <div class="card-content">
+                        <h3>Encontro de Estudantes na Feira</h3>
+                        <p>Conclusãp: Além das apresentações formais, o evento contou com workshops práticos, onde os alunos puderam aprender novas tecnologias e metodologias diretamente com seus pares. A iniciativa promoveu não apenas o desenvolvimento técnico, mas também habilidades essenciais de comunicação e trabalho em equipe.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal3')">
+                    <img src="assets/feira_trabalho_slides.jpeg" alt="Atividades em Laboratório">
+                    <div class="card-content">
+                        <h3>Práticas em Laboratório</h3>
+                        <p>Conclusão: Os resultados obtidos foram notáveis, com diversos projetos sendo implementados com sucesso e gerando soluções práticas para problemas reais. A metodologia aplicada permitiu que os alunos desenvolvessem não apenas habilidades técnicas, mas também competências em gestão de projetos e trabalho colaborativo.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openModal('modal4')">
+                    <svg viewBox="0 0 200 200">
+                        <!-- Workshop & Training SVG -->
+                        <rect x="20" y="40" width="160" height="120" fill="#4CAF50" rx="8"/>
+                        <rect x="30" y="50" width="140" height="80" fill="white" rx="4"/>
+                        <circle cx="100" cy="90" r="30" fill="#2E7D32"/>
+                        <rect x="85" y="75" width="30" height="30" fill="white"/>
+                        <rect x="40" y="140" width="120" height="10" fill="#81C784"/>
+                        <!-- People icons -->
+                        <circle cx="60" cy="90" r="8" fill="#2E7D32"/>
+                        <circle cx="140" cy="90" r="8" fill="#2E7D32"/>
+                    </svg>
+                    <div class="card-content">
+                        <h3>Workshops de Capacitação</h3>
+                        <p>Conclusão: Os participantes recebem certificação oficial do IFPR e têm a oportunidade de desenvolver projetos práticos sob orientação de especialistas. Além disso, os workshops promovem networking entre profissionais e estudantes da área.</p>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="openModal('modal5')">
+                    <svg viewBox="0 0 200 200">
+                        <!-- Community Project SVG -->
+                        <circle cx="100" cy="100" r="60" fill="#4CAF50"/>
+                        <circle cx="100" cy="100" r="45" fill="#2E7D32"/>
+                        <circle cx="100" cy="100" r="30" fill="white"/>
+                        <!-- Connected nodes representing community -->
+                        <circle cx="70" cy="70" r="10" fill="#81C784"/>
+                        <circle cx="130" cy="70" r="10" fill="#81C784"/>
+                        <circle cx="70" cy="130" r="10" fill="#81C784"/>
+                        <circle cx="130" cy="130" r="10" fill="#81C784"/>
+                        <line x1="70" y1="70" x2="130" y2="130" stroke="white" stroke-width="2"/>
+                        <line x1="70" y1="130" x2="130" y2="70" stroke="white" stroke-width="2"/>
+                    </svg>
+                    <div class="card-content">
+                        <h3>Projetos Comunitários</h3>
+                        <p>Conclusão: Estes projetos não apenas beneficiam a comunidade, mas também proporcionam aos estudantes experiência prática valiosa e desenvolvimento de habilidades sociais essenciais.</p>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="openModal('modal6')">
+                    <svg viewBox="0 0 200 200">
+                        <!-- Research & Innovation SVG -->
+                        <rect x="40" y="40" width="120" height="120" fill="#4CAF50" rx="60"/>
+                        <rect x="50" y="50" width="100" height="100" fill="#2E7D32" rx="50"/>
+                        <path d="M80,100 L120,100 M100,80 L100,120" stroke="white" stroke-width="8"/>
+                        <!-- DNA-like pattern -->
+                        <path d="M70,40 Q100,60 130,40" stroke="#81C784" stroke-width="4" fill="none"/>
+                        <path d="M70,160 Q100,140 130,160" stroke="#81C784" stroke-width="4" fill="none"/>
+                    </svg>
+                    <div class="card-content">
+                        <h3>Pesquisa e Inovação</h3>
+                        <p>Conclusão: Os projetos de pesquisa contam com a participação ativa de estudantes bolsistas e voluntários, proporcionando uma experiência única de iniciação científica e desenvolvimento profissional. Muitos destes projetos resultam em publicações científicas e patentes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modals -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal1')">&times;</button>
+                <h3>Feira de Trabalhos Acadêmicos</h3>
+                <p>Na Feira de Trabalhos Acadêmicos do IFPR, tivemos a oportunidade de apresentar diversos projetos inovadores desenvolvidos pelos nossos estudantes. O evento contou com mais de 20 apresentações, abrangendo diferentes áreas do conhecimento.</p>
+                <p>Durante as apresentações, os alunos demonstraram excelente domínio dos temas abordados, utilizando recursos multimídia e protótipos funcionais para ilustrar seus projetos. A interação com o público foi notável, com perguntas pertinentes e debates enriquecedores.</p>
+                <p>Entre os destaques, tivemos projetos de automação residencial, sistemas de monitoramento ambiental, aplicativos educacionais e soluções sustentáveis para problemas da comunidade local. Os avaliadores ficaram impressionados com a qualidade técnica e a criatividade das soluções apresentadas.</p>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal2')">&times;</button>
+                <h3>Encontro de Estudantes na Feira de Trabalhos</h3>
+                <p>O Encontro de Estudantes na Feira de Trabalhos foi um momento extraordinário de integração e compartilhamento de conhecimento. Alunos de diferentes cursos e períodos se reuniram para apresentar seus projetos e trocar experiências.</p>
+                <p>Durante o evento, observamos uma significativa troca de conhecimentos entre os participantes, com discussões técnicas aprofundadas e demonstrações práticas dos projetos. Os estudantes tiveram a oportunidade de networking, estabelecendo conexões importantes para futuras colaborações.</p>
+                <p>Além das apresentações formais, o evento contou com workshops práticos, onde os alunos puderam aprender novas tecnologias e metodologias diretamente com seus pares. A iniciativa promoveu não apenas o desenvolvimento técnico, mas também habilidades essenciais de comunicação e trabalho em equipe.</p>
+            </div>
+        </div>
+
+        <div id="modal3" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal3')">&times;</button>
+                <h3>Práticas em Laboratório</h3>
+                <p>As atividades práticas em laboratório constituem um pilar fundamental na formação dos nossos estudantes. Utilizando equipamentos modernos e tecnologia de ponta, os alunos desenvolveram projetos práticos alinhados com as demandas do mercado de trabalho.</p>
+                <p>Nas sessões de laboratório, os estudantes trabalharam com diversas ferramentas e tecnologias, incluindo programação, eletrônica, automação e desenvolvimento de sistemas. Cada projeto foi cuidadosamente planejado para proporcionar uma experiência hands-on significativa.</p>
+                <p>Os resultados obtidos foram notáveis, com diversos projetos sendo implementados com sucesso e gerando soluções práticas para problemas reais. A metodologia aplicada permitiu que os alunos desenvolvessem não apenas habilidades técnicas, mas também competências em gestão de projetos e trabalho colaborativo.</p>
+            </div>
+        </div>
+
+        <div id="modal4" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal4')">&times;</button>
+                <h3>Workshops de Capacitação</h3>
+                <p>Os Workshops de Capacitação do IFPR são eventos intensivos projetados para desenvolver habilidades técnicas e profissionais específicas. Cada workshop é cuidadosamente estruturado para maximizar o aprendizado prático em um curto período.</p>
+                <p>Nossos workshops abrangem diversas áreas tecnológicas, incluindo:</p>
+                <p>• Desenvolvimento de Software e Programação<br>
+                • Robótica e Automação<br>
+                • Design Digital e Prototipagem<br>
+                • Tecnologias Emergentes (IoT, IA, Machine Learning)</p>
+                <p>Os participantes recebem certificação oficial do IFPR e têm a oportunidade de desenvolver projetos práticos sob orientação de especialistas. Além disso, os workshops promovem networking entre profissionais e estudantes da área.</p>
+            </div>
+        </div>
+        
+        <div id="modal5" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal5')">&times;</button>
+                <h3>Projetos Comunitários</h3>
+                <p>Os Projetos Comunitários são uma ponte vital entre o conhecimento acadêmico e as necessidades reais da sociedade. Através dessas iniciativas, nossos estudantes e professores trabalham diretamente com a comunidade local para desenvolver soluções práticas e inovadoras.</p>
+                <p>Alguns projetos em destaque incluem:</p>
+                <p>• Desenvolvimento de sistemas de monitoramento ambiental para parques locais<br>
+                • Criação de aplicativos para pequenos produtores rurais<br>
+                • Implementação de soluções de energia renovável em escolas públicas<br>
+                • Programas de inclusão digital para comunidades carentes</p>
+                <p>Estes projetos não apenas beneficiam a comunidade, mas também proporcionam aos estudantes experiência prática valiosa e desenvolvimento de habilidades sociais essenciais.</p>
+            </div>
+        </div>
+        
+        <div id="modal6" class="modal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal('modal6')">&times;</button>
+                <h3>Pesquisa e Inovação</h3>
+                <p>O programa de Pesquisa e Inovação do IFPR visa fomentar o desenvolvimento científico e tecnológico através de projetos que integram diferentes áreas do conhecimento. Nossos laboratórios e grupos de pesquisa trabalham em projetos inovadores com potencial impacto significativo.</p>
+                <p>Áreas de pesquisa em destaque:</p>
+                <p>• Desenvolvimento de novas tecnologias sustentáveis<br>
+                • Pesquisa em sistemas inteligentes e automação<br>
+                • Inovação em processos educacionais<br>
+                • Desenvolvimento de soluções para indústria 4.0</p>
+                <p>Os projetos de pesquisa contam com a participação ativa de estudantes bolsistas e voluntários, proporcionando uma experiência única de iniciação científica e desenvolvimento profissional. Muitos destes projetos resultam em publicações científicas e patentes.</p>
+            </div>
+    </main>
+    <footer>
+        <p>© 2024 IFPR - Instituto Federal do Paraná. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = "none";
+                });
+                document.body.style.overflow = "auto";
+            }
+        });
+    </script>
+</body>
+</html>
